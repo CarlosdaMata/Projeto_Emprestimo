@@ -1648,7 +1648,7 @@
           "lib/netcoreapp3.1/Mono.TextTemplating.dll": {}
         }
       },
-      "MySql.Data/9.6.0": {
+      "MySql.Data/9.7.0": {
         "type": "package",
         "dependencies": {
           "BouncyCastle.Cryptography": "2.6.2",
@@ -5235,10 +5235,10 @@
         "readme.md"
       ]
     },
-    "MySql.Data/9.6.0": {
-      "sha512": "jjCXNBxLLQHBcyYyOP4yp5jqljStH2qGFXXg3jBMdwYQk9ihpLH9BXoMyc/J3421pENBDjCf/eGi9Ow0Ib7LUA==",
+    "MySql.Data/9.7.0": {
+      "sha512": "yJRZnwqOaKd7DXdbim2/gznKnt4kJEYUe/+PdbopY0WC+2UPcYGOtuSrHrBOAoKEpO66p5TGwlP4hQ233SBAKA==",
       "type": "package",
-      "path": "mysql.data/9.6.0",
+      "path": "mysql.data/9.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5260,7 +5260,7 @@
         "lib/netstandard2.1/MySql.Data.dll",
         "lib/netstandard2.1/MySql.Data.xml",
         "logo-mysql-170x115.png",
-        "mysql.data.9.6.0.nupkg.sha512",
+        "mysql.data.9.7.0.nupkg.sha512",
         "mysql.data.nuspec",
         "runtimes/win-x64/native/comerr64.dll",
         "runtimes/win-x64/native/gssapi64.dll",
@@ -6133,27 +6133,27 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 8.0.23",
-      "MySql.Data >= 9.6.0"
+      "MySql.Data >= 9.7.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Lenovo\\.nuget\\packages\\": {},
+    "C:\\Users\\3mtec\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Lenovo\\Downloads\\Projeto_Emprestimo-main\\Projeto_Emprestimo-main\\Projeto_Emprestimo\\Projeto_Emprestimo.csproj",
+      "projectUniqueName": "C:\\Users\\3mtec\\Desktop\\projetoPWcarrinho\\Projeto_Emprestimo\\Projeto_Emprestimo.csproj",
       "projectName": "Projeto_Emprestimo",
-      "projectPath": "C:\\Users\\Lenovo\\Downloads\\Projeto_Emprestimo-main\\Projeto_Emprestimo-main\\Projeto_Emprestimo\\Projeto_Emprestimo.csproj",
-      "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Lenovo\\Downloads\\Projeto_Emprestimo-main\\Projeto_Emprestimo-main\\Projeto_Emprestimo\\obj\\",
+      "projectPath": "C:\\Users\\3mtec\\Desktop\\projetoPWcarrinho\\Projeto_Emprestimo\\Projeto_Emprestimo.csproj",
+      "packagesPath": "C:\\Users\\3mtec\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\3mtec\\Desktop\\projetoPWcarrinho\\Projeto_Emprestimo\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\3mtec\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -6162,6 +6162,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -6178,9 +6179,9 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "direct"
+        "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.200"
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net8.0": {
@@ -6192,7 +6193,7 @@
           },
           "MySql.Data": {
             "target": "Package",
-            "version": "[9.6.0, )"
+            "version": "[9.7.0, )"
           }
         },
         "imports": [
@@ -6214,8 +6215,30 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1901",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'NuGet.Packaging' 6.11.0 has a known low severity vulnerability, https://github.com/advisories/GHSA-g4vj-cjjj-v7hg",
+      "libraryId": "NuGet.Packaging",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1901",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'NuGet.Protocol' 6.11.0 has a known low severity vulnerability, https://github.com/advisories/GHSA-g4vj-cjjj-v7hg",
+      "libraryId": "NuGet.Protocol",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }
