@@ -6,10 +6,9 @@ namespace Projeto_Emprestimo.CarrinhoCompra
     public class CookieCarrinhoCompra
     {
         private string Key = "Carrinho.Compras";
-        private Cookie.manipCookie _cookie;
+        private Cookie.Cookie _cookie;
 
-
-        public CookieCarrinhoCompra(Cookie.manipCookie cookie)
+        public CookieCarrinhoCompra(Cookie.Cookie cookie)
         {
             _cookie = cookie;
         }
@@ -18,13 +17,13 @@ namespace Projeto_Emprestimo.CarrinhoCompra
         {
         }
 
-        public void Salvar(List<Models.Livro> Lista)
+        public void Salvar(List<Livro> Lista)
         {
             string Valor = JsonConvert.SerializeObject(Lista);
             _cookie.Cadastrar(Key, Valor);
         }
 
-        public List<Models.Livro> Consultar()
+        public List<Livro> Consultar()
         {
             if (_cookie.Existe(Key))
             {
@@ -44,7 +43,6 @@ namespace Projeto_Emprestimo.CarrinhoCompra
             {
                 Lista = Consultar();
                 var ItemLocalizado = Lista.SingleOrDefault(a => a.codLivro == item.codLivro);
-
                 if (ItemLocalizado == null)
                 {
                     Lista.Add(item);
@@ -52,6 +50,7 @@ namespace Projeto_Emprestimo.CarrinhoCompra
                 else
                 {
                     ItemLocalizado.quantidade = ItemLocalizado.quantidade + 1;
+
                 }
             }
             else
@@ -59,14 +58,16 @@ namespace Projeto_Emprestimo.CarrinhoCompra
                 Lista = new List<Livro>();
                 Lista.Add(item);
             }
+            // criar o metodo salvar
             Salvar(Lista);
         }
+
         public void Atualizar(Livro item)
         {
             var Lista = Consultar();
             var ItemLocalizado = Lista.SingleOrDefault(a => a.codLivro == item.codLivro);
 
-            if(ItemLocalizado != null)
+            if (ItemLocalizado != null)
             {
                 ItemLocalizado.quantidade = item.quantidade + 1;
                 Salvar(Lista);
@@ -78,24 +79,28 @@ namespace Projeto_Emprestimo.CarrinhoCompra
             var Lista = Consultar();
             var ItemLocalizado = Lista.SingleOrDefault(a => a.codLivro == item.codLivro);
 
-            if(ItemLocalizado != null)
+            if (ItemLocalizado != null)
             {
                 Lista.Remove(ItemLocalizado);
                 Salvar(Lista);
             }
         }
+
         public bool Existe(string Key)
         {
-            if(_cookie.Existe(Key))
+            if (_cookie.Existe(Key))
             {
                 return false;
             }
             return true;
         }
+        // parei aqui
         public void RemoverTodos()
         {
             _cookie.Remover(Key);
         }
+
+
+
     }
 }
-            

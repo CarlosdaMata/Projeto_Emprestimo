@@ -10,36 +10,38 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddHttpContextAccessor();
 
-// Adicionar um serviço para Injetar os metodos no Controller
+// interface como serviço
 builder.Services.AddScoped<ILivroRepository, LivroRepository>();
-builder.Services.AddScoped<IEmprestimoRepository, EmprestimoRepository>();
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
+builder.Services.AddScoped<IEmprestimoRepository, EmprestimoRepository>();
 
-builder.Services.Configure<CookiePolicyOptions>(Options =>
+builder.Services.Configure<CookiePolicyOptions>(options =>
 {
-    Options.CheckConsentNeeded = context => true;
-    Options.MinimumSameSitePolicy = SameSiteMode.None;
+    options.CheckConsentNeeded = contet => true;
+    options.MinimumSameSitePolicy = SameSiteMode.None;
 });
-// Corrigir problema com TEMPDATA para aumentar o tempo de duração
+
+
+// corrigir problemas com TempData para aumentar o tempo de duração
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    // Set a short timeout for easy testing.
     options.IdleTimeout = TimeSpan.FromSeconds(900);
     options.Cookie.HttpOnly = true;
-
-    // Deixar informado para o navegador que a sessão é essencial
+    // deixar informado para o navegador que a sessão é essencial
     options.Cookie.IsEssential = true;
-});
 
+});
 builder.Services.AddMvc().AddSessionStateTempDataProvider();
 
-builder.Services.AddMemoryCache(); // Guardar os dados na memória
+builder.Services.AddMemoryCache();
 
-// Add Gerenciador Arquivo como serviços
+
+// add gerenciador arquivo como serviços
 builder.Services.AddScoped<GerenciadorArquivo>();
-builder.Services.AddScoped<Projeto_Emprestimo.Cookie.manipCookie>();
+builder.Services.AddScoped<Projeto_Emprestimo.Cookie.Cookie>();
 builder.Services.AddScoped<Projeto_Emprestimo.CarrinhoCompra.CookieCarrinhoCompra>();
+
 
 var app = builder.Build();
 

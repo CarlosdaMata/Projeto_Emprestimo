@@ -9,13 +9,15 @@ namespace Projeto_Emprestimo.Controllers
 {
     public class HomeController : Controller
     {
-        private IItemRepository _itemRepository;
-        private IEmprestimoRepository _emprestimoRepository;
-        private CookieCarrinhoCompra _cookieCarrinhoCompra;
         private ILivroRepository _livroRepository;
+        private CookieCarrinhoCompra _cookieCarrinhoCompra;
 
-        public HomeController(ILivroRepository livroRepository, CookieCarrinhoCompra  cookieCarrinhoCompra,
-                                IEmprestimoRepository emprestimoRepository,IItemRepository itemRepository )
+        private IEmprestimoRepository _emprestimoRepository;
+        private IItemRepository _itemRepository;
+
+
+
+        public HomeController(ILivroRepository livroRepository, CookieCarrinhoCompra cookieCarrinhoCompra, IEmprestimoRepository emprestimoRepository, IItemRepository itemRepository)
         {
             _livroRepository = livroRepository;
             _cookieCarrinhoCompra = cookieCarrinhoCompra;
@@ -28,13 +30,24 @@ namespace Projeto_Emprestimo.Controllers
             return View(_livroRepository.ObterTodosLivros());
         }
 
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
         public IActionResult AdicionarItem(int id)
         {
             Livro produto = _livroRepository.ObterLivros(id);
 
-            if(produto == null)
+            if (produto == null)
             {
-                return View("Nao Existe Item");
+                return View("NaoExisteItem");
             }
             else
             {
@@ -46,62 +59,50 @@ namespace Projeto_Emprestimo.Controllers
                     nomeLivro = produto.nomeLivro
                 };
                 _cookieCarrinhoCompra.Cadastrar(item);
-                return RedirectToAction(nameof(CarrinhoCompra));
+
+                return RedirectToAction(nameof(Carrinho));
             }
         }
-
+        //carrinho de compra
         public IActionResult Carrinho()
         {
             return View(_cookieCarrinhoCompra.Consultar());
         }
 
-        public IActionResult RemoverItem (int id)
+        //Remover itens do carrinho
+        public IActionResult RemoverItem(int id)
         {
-            _cookieCarrinhoCompra.Remover(new Livro() { codLivro=id });
+            _cookieCarrinhoCompra.Remover(new Livro() { codLivro = id });
             return RedirectToAction(nameof(Carrinho));
         }
-
         DateTime data;
         public IActionResult SalvarCarrinho(Emprestimo emprestimo)
         {
-            List<Livro> carrinho = new CookieCarrinhoCompra().Consultar();
-
+            List<Livro> carrinho = _cookieCarrinhoCompra.Consultar();
             Emprestimo mdE = new Emprestimo();
             Item mdI = new Item();
 
             data = DateTime.Now.ToLocalTime();
-
             mdE.dataEmp = data.ToString("dd/MM/yyyy");
             mdE.dataDev = data.AddDays(7).ToString();
-            mdE.codUsu = 1;
+            mdE.codUsu = "1";
             _emprestimoRepository.Cadastrar(mdE);
-
             _emprestimoRepository.buscaIdEmp(emprestimo);
 
             for (int i = 0; i < carrinho.Count; i++)
             {
                 mdI.codEmp = Convert.ToInt32(emprestimo.codEmp);
-                mdI.codLivro = Convert.ToChar(carrinho[i].codLivro);
+                mdI.codLivro = Convert.ToString(carrinho[i].codLivro);
 
                 _itemRepository.Cadastrar(mdI);
             }
 
             _cookieCarrinhoCompra.RemoverTodos();
             return RedirectToAction("confEmp");
-
         }
-
         public IActionResult confEmp()
         {
             return View();
-        }
-       
-       
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

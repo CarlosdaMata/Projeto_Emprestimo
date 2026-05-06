@@ -1,32 +1,59 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Projeto_Emprestimo.GerenciaArquivos;
 using Projeto_Emprestimo.Models;
 using Projeto_Emprestimo.Repositories.Contract;
+using System.Diagnostics;
 
-public class LivroController : Controller
+namespace Projeto_Emprestimo.Controllers
 {
-    private ILivroRepository _livroRepository;
-
-    public LivroController(ILivroRepository livroRepository)
+    public class LivrosController : Controller
     {
-        _livroRepository = livroRepository;
-    }
+        private ILivroRepository _livroRepository;
 
-    public IActionResult Index()
-    {
-        return View();
-    }
-    [HttpPost]
-    public IActionResult Index(Livro livro, IFormFile file)
-    {
-        var Caminho = GerenciadorArquivo.CadastrarImagemProduto(file);
+        public LivrosController(ILivroRepository livroRepository)
+        {
+            _livroRepository = livroRepository;
+        }
 
-        livro.imagemLivro = Caminho;
+        public IActionResult Index()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Index(Livro livro, IFormFile file)
+        {
+            var Caminho = GerenciadorArquivo.CadastrarImagemProduto(file);
 
-        _livroRepository.Cadastrar(livro);
+            livro.imagemLivro = Caminho;
 
-        ViewBag.msg = "Cadastro realizado";
-        return View();
+            _livroRepository.Cadastrar(livro);
+
+            ViewBag.msg = "Cadastro realizado";
+            return View();
+        }
+
+
+        public IActionResult CadLivro()
+        {
+            var listCategorias = _livroRepository.ObterTodosLivros();
+            ViewBag.Categorias = new SelectList(listCategorias, "codLivro", "descricao");
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CadLivro(Livro livro, IFormFile file)
+        {
+            var listCategorias = _livroRepository.ObterTodosLivros();
+            ViewBag.Categorias = new SelectList(listCategorias, "codLivro", "descricao");
+
+            var Caminho = GerenciadorArquivo.CadastrarImagemProduto(file);
+
+            livro.imagemLivro = Caminho;
+
+            _livroRepository.Cadastrar(livro);
+
+            ViewBag.msg = "Cadastro realizado";
+            return View();
+        }
     }
 }
