@@ -9,7 +9,9 @@ nomeUsu varchar(50)
 create table tbLivro(
 codLivro int primary key auto_increment,
 nomeLivro varchar(50),
-imagemLivro varchar(255)
+imagemLivro varchar(255),
+autorLivro varchar(255),
+valorLivro varchar(255)
 );
 
 create table tbEmprestimo(

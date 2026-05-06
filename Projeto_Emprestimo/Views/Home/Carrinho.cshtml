@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EmprestimoLivroAspCore.Models.Livro>
+﻿@model IEnumerable<Projeto_Emprestimo.Models.Livro>
 
 @{
     ViewData["Title"] = "Index";
@@ -10,6 +10,7 @@
         <br />
         <br />
         <h2 class="title-doc">Carrinho de compras</h2>
+
         <div class="alert alert-danger" style="display: none;" role="alert">
         </div>
 
@@ -24,7 +25,79 @@
                             <th scope="col" width="200" class="text-right">Ação</th>
                         </tr>
                     </thead>
+
                     <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <figure class="media">
+                                        <div class="img-wrap">
+                                            <img alt="@item.nomeLivro" [300x300]"
+                                                 style="width: 40px; height: 40px;"
+                                                 src="@item.imagemLivro" />
+                                        </div>
+                                        <figcaption class="media-body">
+                                            <h6 class="title text-truncate">@item.nomeLivro</h6>
+                                            <dl class="dlist-inline small">
+                                                <dt>Autor:</dt>
+                                                <dd>@item.autorLivro</dd>
+                                            </dl>
+                                        </figcaption>
+                                    </figure>
+                                </td>
 
+                                <td>
+                                    <div class="col-auto">
+                                        <div class="input-group mb-2 control-inline">
+                                            <input type="hidden" class="produtoId" value="@item.codLivro" />
+                                            <input type="hidden" class="precoProduto"
+                                                   value="@String.Format("{0:0.00}", @item.valorLivro)" />
+
+                                            <input type="text" class="form-control"
+                                                   contenteditable="readOnly"
+                                                   value="@item.quantidade"
+                                                   class="qtd inputQuantidadeProdutoCarrinho" />
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td></td>
+
+                                <td class="text-right">
+                                    <a asp-controller="Home"
+                                       asp-action="RemoverItem"
+                                       asp-route-id="@item.codLivro"
+                                       class="btn btn-outline-danger">Remover</a>
+                                </td>
+                            </tr>
+                        }
                     </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
 
+    <br />
+
+    <div class="container">
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="action outtro">
+                    <a asp-controller="Home" asp-action="Index">
+                        Clique aqui para continuar...
+                    </a>
+                </div>
+                <br />
+                <div class="offset-md-4 col-md-4">
+                    <a class="btn btn-outline-primary btn-continuar-comprando"
+                           asp-action="SalvarCarrinho"
+                           asp-controller="Home">
+                        Finalizar o Emprestimo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
