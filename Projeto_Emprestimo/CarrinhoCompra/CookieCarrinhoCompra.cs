@@ -14,6 +14,10 @@ namespace Projeto_Emprestimo.CarrinhoCompra
             _cookie = cookie;
         }
 
+        public CookieCarrinhoCompra()
+        {
+        }
+
         public void Salvar(List<Models.Livro> Lista)
         {
             string Valor = JsonConvert.SerializeObject(Lista);
@@ -79,6 +83,18 @@ namespace Projeto_Emprestimo.CarrinhoCompra
                 Lista.Remove(ItemLocalizado);
                 Salvar(Lista);
             }
+        }
+        public bool Existe(string Key)
+        {
+            if(_cookie.Existe(Key))
+            {
+                return false;
+            }
+            return true;
+        }
+        public void RemoverTodos()
+        {
+            _cookie.Remover(Key);
         }
     }
 }
