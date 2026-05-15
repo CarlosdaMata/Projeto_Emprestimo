@@ -1,4 +1,4 @@
-create  database dbEmprestimo;
+create database dbEmprestimo;
 use dbEmprestimo;
 
 create table tbUsuario(
@@ -24,6 +24,12 @@ codItem int primary key auto_increment,
 codEmp int references tbEmprestimo(codEmp),
 codLivro int references tbLivro(codLivro)
 );
+
+create table Categoria(
+Id int primary key auto_increment,
+Nome varchar(200) not null
+);
+
 
 select * from itensEmp;
 

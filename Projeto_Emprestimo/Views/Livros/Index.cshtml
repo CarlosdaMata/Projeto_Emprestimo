@@ -1,15 +1,15 @@
 ﻿@model Projeto_Emprestimo.Models.Livro
 
 @{
-    ViewData["Title"] = "Cadastrar Novo Livro";
+    ViewBag.Title = "Cadastrar Novo Livro";
 }
-<h2 style="text-align:center;">Novo Livro</h2>
+
+<h2 style="text-align: center;">Novo Livro</h2>
 
 <div class="center">
-    @using (Html.BeginForm("Index", "Livros", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("Index", "Livro", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
-
         <div class="form-horizontal">
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -22,19 +22,22 @@
                     @Html.ValidationMessageFor(model => model.nomeLivro, "", new { @class = "text-danger" })
                 </div>
             </div>
+
             <div class="form-group center">
-                <div>
+                <div class="">
                     <label class="control-label col-md-2" for="file">Capa Livro</label>
                 </div>
                 <div class="col-md-10">
                     <input type="file" name="file" id="file" /> <br />
                 </div>
             </div>
+
             <div class="form-group center">
                 <div class="col-md-10">
                     @ViewBag.msg <br />
                 </div>
             </div>
+
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Salvar Produto" class="btn btn-success" />
@@ -42,5 +45,4 @@
             </div>
         </div>
     }
-
 </div>
